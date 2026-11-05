@@ -1,0 +1,7 @@
+*.ova
+*.vdi
+*.vmdk
+*.key
+id_*
+*.pem
+.env
