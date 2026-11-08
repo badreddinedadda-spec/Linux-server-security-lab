@@ -1,0 +1,20 @@
+Nov 05 13:23:50 ghait sudo[3095]: root : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw status
+Nov 05 13:24:32 ghait sudo[3105]: root : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw allow 22/tcp
+Nov 05 13:24:42 ghait sudo[3125]: root : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw allow 80/tcp
+Nov 05 13:24:53 ghait sudo[3140]: root : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw enable
+Nov 05 16:49:52 ghait sudo[3549]: root : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw status verbose
+Nov 06 14:44:15 ghait sudo[1610]: badre : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw status verbose
+Nov 06 14:52:36 ghait sudo[1712]: badre : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/bin/journalctl -u ufw --no-pager
+Nov 06 14:54:14 ghait sudo[1735]: badre : TTY=/dev/tty1 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/bin/journalctl -u ufw --no-pager
+Nov 06 14:55:21 ghait sudo[1743]: badre : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw status verbose
+Nov 06 14:56:19 ghait sudo[1768]: badre : TTY=/dev/tty1 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/bin/journalctl -u ufw --no-pager
+Nov 07 15:43:57 ghait sudo[2014]: badre : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw disable
+Nov 07 15:49:24 ghait sudo[2317]: badre : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw enable
+Nov 07 15:49:47 ghait sudo[2612]: badre : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw status verbose
+Nov 07 15:59:16 ghait sudo[2667]: badre : TTY=/dev/tty1 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw disable
+Nov 07 16:00:26 ghait sudo[2849]: badre : TTY=/dev/tty1 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw enable
+Nov 07 16:00:39 ghait sudo[3140]: badre : TTY=/dev/tty1 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw status verbose
+Nov 07 16:01:42 ghait sudo[3167]: badre : TTY=/dev/pts/0 ; PWD=/tmp/empty ; USER=root ; COMMAND=/usr/sbin/ufw status verbose
+Nov 07 16:04:15 ghait sudo[3185]: badre : TTY=/dev/tty1 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw status verbose
+Nov 07 19:06:54 ghait sudo[44126]: badre : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw status verbose
+Nov 07 19:07:00 ghait sudo[44144]: badre : TTY=/dev/pts/0 ; PWD=/home/badre ; USER=root ; COMMAND=/usr/sbin/ufw status verbose

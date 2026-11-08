@@ -1,0 +1,10 @@
+# Nmap 7.95 scan initiated Sat Nov  7 12:58:19 2026 as: /usr/lib/nmap/nmap -p 8080 -oN stray-8080-ufw-on.txt 10.10.111.8
+mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+Nmap scan report for 10.10.111.8
+Host is up (0.00094s latency).
+
+PORT     STATE    SERVICE
+8080/tcp filtered http-proxy
+MAC Address: 08:00:27:A7:3D:1B (PCS Systemtechnik/Oracle VirtualBox virtual NIC)
+
+# Nmap done at Sat Nov  7 12:58:20 2026 -- 1 IP address (1 host up) scanned in 0.41 seconds
