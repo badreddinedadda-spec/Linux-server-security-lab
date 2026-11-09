@@ -48,7 +48,7 @@ A Python web server was started by hand on port 8080, from an empty folder, to s
 | on | filtered | `stray-8080-ufw-on.txt` |
 | off | open | `stray-8080-ufw-off.txt`; server log shows `HEAD / HTTP/1.1` 200 from 10.10.111.5 |
 
-Conclusion: DRAFT, rewrite in your own words. With default deny, a service nobody meant to expose is not reachable from the network. Without the firewall it is reachable immediately. UFW was re-enabled and verified afterwards (`ufw status verbose`: active).
+Conclusion: with UFW default deny, a service started by mistake (a test web server on port 8080) is filtered and not reachable from the network, while with UFW off it was open immediately. The firewall must stay enabled with default deny incoming. UFW was re-enabled and verified afterwards (`ufw status verbose`: active).
 
 ## Lynis audit (before hardening)
 
@@ -69,24 +69,24 @@ Suggestions relevant to this project: Fail2ban (DEB-0880), auditd (ACCT-9628), S
 
 ### F1. Firewall initially inactive; now active but SSH is open to any source with no rate limiting (Low)
 - Evidence: `ufw status` at 13:23:50 showed inactive; UFW was enabled by the administrator at 13:24:53 (see timeline). Current state from `ufw status verbose`: default deny incoming, `22/tcp ALLOW IN Anywhere` and `80/tcp ALLOW IN Anywhere` (IPv4 and IPv6), logging low. The `ufw-user-limit` chain exists in the kernel rules but no rule uses it.
-- Impact: DRAFT, rewrite in your own words. Before UFW, any service started by mistake would be reachable. Now any machine on the network can still attempt SSH logins, and nothing limits how often a source can connect.
-- Fix: DRAFT. Restrict port 22 to the admin source address, add `ufw limit 22/tcp`, and raise logging.
+- Impact: Before UFW, a service started by mistake was reachable immediately (confirmed with my port 8080 test). Now, with SSH open to any source and no rate limiting, an attacker can discover the open port by scanning (reconnaissance), then guess passwords without limits (brute force, T1110), and if one works, could use the server for further attacks, for example in a botnet.
+- Fix: Restrict SSH in UFW to the admin subnet and rate-limit it (`ufw limit 22/tcp`), lower `MaxAuthTries` to 3, and install Fail2ban to ban the source IP after 3 failed logins until an administrator reviews and unbans it (with the admin address in `ignoreip`).
 
 ### F2. Version disclosure and missing security headers (Low)
 - Evidence: server banner `Apache/2.4.66 (Ubuntu)`; `X-Frame-Options` and `X-Content-Type-Options` headers missing (Nikto)
-- Impact: DRAFT, rewrite in your own words. The attacker learns the exact web server version and operating system, which helps choose known exploits. Missing headers allow clickjacking and browser MIME sniffing.
-- Fix: DRAFT. Set `ServerTokens Prod` and `ServerSignature Off`; add both headers with `mod_headers`.
+- Impact: The Server header and scan results reveal the exact Apache version and operating system. This gives an attacker a starting point: they can look up known vulnerabilities for that version and go straight to exploiting one as the next step, instead of testing blindly. However, the version number alone does not prove the server is vulnerable, because Ubuntu applies security fixes without changing the version string. The two missing headers also leave browsers open to clickjacking and MIME sniffing.
+- Fix: Set `ServerTokens Prod` and `ServerSignature Off` so the server stops announcing its exact version, add the `X-Frame-Options` and `X-Content-Type-Options` headers with `mod_headers`, and keep Apache patched.
 
 ### F3. SSH: default MaxAuthTries and no user whitelist (Low)
 - Evidence: `maxauthtries 6` (default, applies per connection only; Lynis suggests 3); `allowusers` not set (Lynis: AllowUsers and AllowGroups not found). `logingracetime 120` is rated OK by Lynis, so it is a minor note, not a finding.
-- Impact: DRAFT, rewrite in your own words. Each new connection gets 6 more password attempts, and any valid account may attempt to log in because there is no whitelist.
-- Fix: DRAFT. Set `MaxAuthTries 3` and add `AllowUsers` for the admin account.
+- Impact: `MaxAuthTries` only limits attempts per connection. An attacker can open a new connection and get six more guesses each time, so it does not stop brute force. With no `AllowUsers` whitelist, any valid account can be targeted.
+- Fix: Set `MaxAuthTries` to 3 and add `AllowUsers` for the admin account, and rely on rate limiting (`ufw limit`, Fail2ban) and key authentication to actually stop brute force.
 
 ### F4. SSH password authentication enabled (Medium)
 - Evidence: `sshd -T` shows `passwordauthentication yes`
 - Combined with: F1 (SSH reachable from any source, no rate limiting), no Fail2ban
-- Impact: DRAFT, rewrite in your own words. An attacker can guess passwords against any valid account repeatedly. Success depends only on password strength, and nothing currently slows or blocks repeated attempts.
-- Fix: DRAFT. Use key authentication and set `PasswordAuthentication no` after key login is tested; add connection rate limiting and Fail2ban.
+- Impact: Brute force succeeds if the password is easy to guess and the server lets the attacker make unlimited attempts. Password login is enabled and nothing limits attempts per source (no rate limiting, no Fail2ban), so the only barrier is the strength of the password.
+- Fix: Use SSH key authentication with a passphrase and set `PasswordAuthentication no` once key login is tested; add rate limiting and Fail2ban as a second layer, and optionally a second factor (TOTP).
 - ATT&CK mapping: T1110 Brute Force
 
 ## False positives
@@ -103,7 +103,7 @@ Suggestions relevant to this project: Fail2ban (DEB-0880), auditd (ACCT-9628), S
 - [ ] Sync both clocks once the Ubuntu VM has internet (NTP), then record `date -u` from both at the start of every test session
 - [x] Re-run Nmap with UFW off (`nmap-baseline-ufw-off.txt`), then re-enable UFW and confirm with `ufw status verbose`
 - [x] Add the `maxauthtries` value to F3
-- [ ] Rewrite the DRAFT sentences in F1, F2, F3 and F4 in your own words
+- [x] Write the Impact and Fix sentences for F1 to F4 and the stray-service conclusion in your own words
 - [x] Copy the two stray-service Nmap files and the server log (`stray-8080-server-log.txt`) into `01-baseline/`
 - [x] Lynis hardening index: 60
 - [x] Copy `lynis-baseline.txt` into `01-baseline/`
