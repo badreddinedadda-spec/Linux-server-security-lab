@@ -1,0 +1,4 @@
+drwxr-xr-x 2 root root 4096 Apr 20  2026 /etc/cron.d
+-rw-r--r-- 1 root root 4307 Oct  8 16:36 /etc/ssh/sshd_config
+drwxr-xr-x 2 root root 4096 Apr 20  2026 /etc/sudoers.d
+sudo:x:27:badre
