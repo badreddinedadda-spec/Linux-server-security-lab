@@ -1,0 +1,5 @@
+vulnerable_package[]=apt
+vulnerable_package[]=ca-certificates
+vulnerable_package[]=libapt-pkg7.0
+vulnerable_package[]=python3-twisted
+vulnerable_packages_found=1
