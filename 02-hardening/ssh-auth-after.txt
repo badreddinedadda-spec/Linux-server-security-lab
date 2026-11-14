@@ -1,0 +1,15 @@
+Nov 13 20:19:07 ghait sshd-session[3140]: Accepted key ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU found at /home/badre/.ssh/authorized_keys:1
+Nov 13 20:19:11 ghait sshd-session[3140]: Accepted key ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU found at /home/badre/.ssh/authorized_keys:1
+Nov 13 20:19:11 ghait sshd-session[3140]: Accepted publickey for badre from 10.10.111.3 port 52526 ssh2: ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU
+Nov 13 20:20:28 ghait sshd-session[3243]: Connection closed by authenticating user badre 10.10.111.8 port 49964 [preauth]
+Nov 13 20:25:34 ghait sshd-session[3275]: Accepted key ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU found at /home/badre/.ssh/authorized_keys:1
+Nov 13 20:25:38 ghait sshd-session[3275]: Accepted key ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU found at /home/badre/.ssh/authorized_keys:1
+Nov 13 20:25:39 ghait sshd-session[3275]: Accepted publickey for badre from 10.10.111.3 port 52533 ssh2: ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU
+Nov 13 20:46:35 ghait sshd-session[3404]: Accepted key ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU found at /home/badre/.ssh/authorized_keys:1
+Nov 13 20:46:39 ghait sshd-session[3404]: Accepted key ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU found at /home/badre/.ssh/authorized_keys:1
+Nov 13 20:46:40 ghait sshd-session[3404]: Accepted publickey for badre from 10.10.111.3 port 52597 ssh2: ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU
+Nov 13 20:47:39 ghait sshd-session[3490]: Connection closed by authenticating user badre 10.10.111.8 port 47504 [preauth]
+Nov 13 20:56:30 ghait sshd-session[3562]: Accepted key ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU found at /home/badre/.ssh/authorized_keys:1
+Nov 13 20:56:34 ghait sshd-session[3562]: Accepted key ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU found at /home/badre/.ssh/authorized_keys:1
+Nov 13 20:56:35 ghait sshd-session[3562]: Accepted publickey for badre from 10.10.111.3 port 52614 ssh2: ED25519 SHA256:u7R6YKV1Kr/3MXFfOeVftG4WD7JFbe8kxhr78vsklGU
+Nov 13 21:01:09 ghait sshd-session[3634]: Connection closed by authenticating user badre 10.10.111.8 port 53062 [preauth]
