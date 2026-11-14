@@ -1,0 +1,39 @@
+6c6
+< allowagentforwarding yes
+---
+> allowagentforwarding no
+8c8,9
+< allowtcpforwarding yes
+---
+> allowtcpforwarding no
+> allowusers badre
+21,22c22,23
+< clientalivecountmax 3
+< clientaliveinterval 0
+---
+> clientalivecountmax 2
+> clientaliveinterval 300
+54,55c55,56
+< logingracetime 120
+< loglevel INFO
+---
+> logingracetime 30
+> loglevel VERBOSE
+57,58c58,59
+< maxauthtries 6
+< maxsessions 10
+---
+> maxauthtries 3
+> maxsessions 2
+62c63
+< passwordauthentication yes
+---
+> passwordauthentication no
+66c67
+< permitrootlogin prohibit-password
+---
+> permitrootlogin no
+101c102
+< x11forwarding yes
+---
+> x11forwarding no
