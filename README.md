@@ -3,9 +3,11 @@
 Hardening, attack simulation and threat detection on an isolated Ubuntu server.
 
 ## Objective
+## Objective
 
-DRAFT, rewrite in your own words: build an isolated lab with a Linux web server, secure it, simulate attacks against it from a second machine, detect them in the logs, and prove with before/after evidence that the defenses work.
-
+I built an isolated lab with an Ubuntu web server and a Kali attacker machine. I secure the server, 
+simulate real attacks against it (port scans and SSH brute force), detect them in the logs,
+and measure the improvement with before/after evidence.
 ## Lab architecture
 
 ![Lab architecture](01-baseline/network-diagram.png)
@@ -35,7 +37,7 @@ Baseline details and raw evidence: [01-baseline](01-baseline/README.md)
 
 ## Phases
 
-- [ ] Phase 1: Baseline (November)
+- [X] Phase 1: Baseline (November)
 - [ ] Phase 2: Hardening (December)
 - [ ] Phase 3: Attack simulation and detection (January)
 - [ ] Phase 4: Final report (February)
