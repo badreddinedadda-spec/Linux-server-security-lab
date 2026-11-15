@@ -2,7 +2,7 @@
 
 Target: Ubuntu Server 26.04 LTS (10.10.111.8), administered from the Windows host over SSH. Each step lists the change, the evidence files, and how to roll back.
 
-Status: Step A (updates) and Step B (SSH) done. Pending: C (UFW), D (Apache), E (unused services), F (least privilege), then the after-measurements.
+Status: Step A (updates), Step B (SSH) and Step C (UFW) done. Pending: D (Apache), E (unused services), F (least privilege), then the after-measurements.
 
 ## Snapshots
 
@@ -55,6 +55,25 @@ Before-attack baseline for Phase 3: restore a snapshot and check `sudo sshd -T |
 - Evidence: `01-baseline/sshd-effective-baseline.txt`, `sshd-effective-after.txt`, `sshd-diff.txt`, `ssh-auth-after.txt`, `ssh-password-login-refused.txt`
 - Rollback: `sudo rm /etc/ssh/sshd_config.d/00-hardening.conf && sudo systemctl reload ssh` (from the VirtualBox console if SSH is locked), or restore the snapshot.
 
+## Step C: UFW rules (F1)
+
+- Change: added `ufw limit in on enp0s3 from 10.10.111.0/24 to any port 22 proto tcp` and `ufw allow in on enp0s3 from 10.10.111.0/24 to any port 80 proto tcp`; then deleted the old `22/tcp` and `80/tcp` rules for Anywhere (this also removed their IPv6 versions); `ufw logging medium`.
+- Result (`ufw status verbose`): default deny incoming, and only two rules remain: `22/tcp on enp0s3 LIMIT IN 10.10.111.0/24` and `80/tcp on enp0s3 ALLOW IN 10.10.111.0/24`.
+- Rate-limit test: 8 quick SSH connections from Kali (key not available there, so each is refused at authentication):
+
+| Try | Before | After |
+|---|---|---|
+| 1 to 5 | Permission denied (publickey) | Permission denied (publickey) |
+| 6 to 8 | Permission denied (publickey) | Connection refused |
+
+- Log evidence: three `[UFW LIMIT BLOCK]` entries, `SRC=10.10.111.5 DST=10.10.111.8 DPT=22`, SYN packets, at the time of tries 6 to 8.
+- Admin check: `ssh lab-server` from the Windows host still works with the key and passphrase after the change.
+- Note on attribution: the before-test ran while Kali was behind its NAT adapter, so the target saw the source as the Windows host (10.10.111.3); the after-test ran with Kali on the lab network (10.10.111.5). IP-based controls act on the source address the server sees, and NAT can hide the real source.
+- Note: the NAT adapter (enp0s8) is still enabled. The SSH and HTTP rules apply only to enp0s3, so incoming traffic on enp0s8 falls under default deny (by rule design, not tested from the NAT side). The NAT adapter is disconnected during attack tests.
+- Why: DRAFT, rewrite in your own words. Only the lab network can reach SSH and HTTP, and one source cannot hammer SSH with unlimited connections.
+- Evidence: `ufw-after.txt`, `ufw-limit-block.txt`, `ufw-limit-before-attack.txt`, `ufw-limit-after-attack.txt`
+- Rollback: `sudo ufw allow 22/tcp` and `sudo ufw allow 80/tcp`, or restore a snapshot.
+
 ## Before / after so far
 
 | Metric | Before | After |
@@ -66,7 +85,10 @@ Before-attack baseline for Phase 3: restore a snapshot and check `sudo sshd -T |
 | SSH LoginGraceTime | 120 | 30 |
 | SSH root login | prohibit-password | no |
 | Lynis hardening index | 60 | ? |
-| SSH reachable from | Anywhere (no limit) | ? (Step C) |
+| SSH reachable from | Anywhere (no limit) | Lab subnet on enp0s3 only, limit: 6 connections per 30 s per source |
+| SSH connections 6 to 8 in a quick burst | accepted for authentication | Connection refused |
+| UFW logging | low | medium |
+| IPv6 SSH and HTTP rules | present | removed (default deny) |
 | Apache Server header | Apache/2.4.66 (Ubuntu) | ? (Step D) |
 | Security headers (X-Frame-Options, nosniff) | 0 of 2 | ? (Step D) |
 | Services enabled at boot | 53 | ? (Step E) |
