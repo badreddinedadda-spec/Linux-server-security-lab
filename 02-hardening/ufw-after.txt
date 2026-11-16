@@ -1,0 +1,10 @@
+Status: active
+Logging: on (medium)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp on enp0s3           LIMIT IN    10.10.111.0/24            
+80/tcp on enp0s3           ALLOW IN    10.10.111.0/24            
+

@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Date: Sun, 15 Nov 2026 15:41:25 GMT
+Server: Apache
+X-Frame-Options: SAMEORIGIN
+X-Frame-Type-Options: nosniff
+Last-Modified: Thu, 05 Nov 2026 12:25:49 GMT
+ETag: "29b0-65f86988bd7f0"
+Accept-Ranges: bytes
+Content-Length: 10672
+Vary: Accept-Encoding
+Content-Type: text/html
+

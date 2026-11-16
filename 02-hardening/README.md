@@ -72,6 +72,7 @@ Before-attack baseline for Phase 3: restore a snapshot and check `sudo sshd -T |
 - Note: the NAT adapter (enp0s8) is still enabled. The SSH and HTTP rules apply only to enp0s3, so incoming traffic on enp0s8 falls under default deny (by rule design, not tested from the NAT side). The NAT adapter is disconnected during attack tests.
 - Why: DRAFT, rewrite in your own words. Only the lab network can reach SSH and HTTP, and one source cannot hammer SSH with unlimited connections.
 - Evidence: `ufw-after.txt`, `ufw-limit-block.txt`, `ufw-limit-before-attack.txt`, `ufw-limit-after-attack.txt`
+- Evidence note: the first capture of the two loop outputs lost the error messages (`ssh` prints them on stderr and `tee` only captured stdout, so both files held only `try N: 255`). The after-test was re-run with `2>&1`. The before-test file is transcribed from the terminal output of the original run (header line says so), because the before state no longer exists.
 - Rollback: `sudo ufw allow 22/tcp` and `sudo ufw allow 80/tcp`, or restore a snapshot.
 
 ## Before / after so far

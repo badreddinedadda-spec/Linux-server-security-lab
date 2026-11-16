@@ -1,8 +1,16 @@
+badre@10.10.111.8: Permission denied (publickey).
 try 1: 255
+badre@10.10.111.8: Permission denied (publickey).
 try 2: 255
+badre@10.10.111.8: Permission denied (publickey).
 try 3: 255
+badre@10.10.111.8: Permission denied (publickey).
 try 4: 255
+badre@10.10.111.8: Permission denied (publickey).
 try 5: 255
+ssh: connect to host 10.10.111.8 port 22: Connection refused
 try 6: 255
+ssh: connect to host 10.10.111.8 port 22: Connection refused
 try 7: 255
+ssh: connect to host 10.10.111.8 port 22: Connection refused
 try 8: 255
