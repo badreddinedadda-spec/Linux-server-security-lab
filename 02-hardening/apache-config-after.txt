@@ -1,5 +1,8 @@
 14:ServerTokens Prod
 22:ServerSignature Off
 32:TraceEnable Off
-Header always set X-Frame-Options "SAMEORIGIN"
-Header always set X-Frame-Type-Options "nosniff"
+/etc/apache2/conf-available/security-headers.conf:1:Header always set X-Frame-Options "SAMEORIGIN"
+/etc/apache2/conf-available/security-headers.conf:2:Header always set X-Content-Type-Options "nosniff"
+/etc/apache2/conf-available/security-heeaders.conf:1:Header always set X-Frame-Options "SAMEORIGIN"
+/etc/apache2/conf-available/security-heeaders.conf:2:Header always set X-Content-Type-Options "nosniff"
+/etc/apache2/conf-available/security.conf:51:#Header set X-Content-Type-Options: "nosniff"
