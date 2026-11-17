@@ -1,0 +1,5 @@
+14:ServerTokens Prod
+22:ServerSignature Off
+32:TraceEnable Off
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-Frame-Type-Options "nosniff"
