@@ -3,11 +3,9 @@
 Hardening, attack simulation and threat detection on an isolated Ubuntu server.
 
 ## Objective
-## Objective
 
-I built an isolated lab with an Ubuntu web server and a Kali attacker machine. I secure the server, 
-simulate real attacks against it (port scans and SSH brute force), detect them in the logs,
-and measure the improvement with before/after evidence.
+I built an isolated lab with an Ubuntu web server and a Kali attacker machine. I secure the server, simulate real attacks against it (port scans and SSH brute force), detect them in the logs, and measure the improvement with before/after evidence.
+
 ## Lab architecture
 
 ![Lab architecture](01-baseline/network-diagram.png)
@@ -17,9 +15,7 @@ and measure the improvement with before/after evidence.
 | Server | Ubuntu Server 26.04 LTS | Target | 10.10.111.8 |
 | Attacker | Kali Linux | Attack simulation | 10.10.111.5 |
 
-<!-- Check the Kali address with `ip -br a` on Kali and write the one you actually see. -->
-
-Network: VirtualBox host-only (10.10.111.0/24) for the lab, plus a NAT adapter on each VM for updates only (disconnected during attack tests).
+Network: VirtualBox host-only (10.10.111.0/24) for the lab, plus a NAT adapter on each VM for updates only (disconnected during attack tests). The Windows host (10.10.111.3) is the administration workstation and holds the SSH key; the attacker machine does not.
 
 ## Threat model
 
@@ -27,24 +23,33 @@ Network: VirtualBox host-only (10.10.111.0/24) for the lab, plus a NAT adapter o
 
 ## Results
 
-| Metric | Before | After |
+| Metric | Before | After (Phase 2) |
 |---|---|---|
-| Lynis hardening index | 60 | ? |
-| Open TCP ports (full scan) | 2 (22, 80) | ? |
-| SSH brute-force outcome | ? | ? |
+| Lynis hardening index | 60 | 65 |
+| Open TCP ports (full scan) | 2 (22, 80) | 2 (22, 80) |
+| SSH password login | enabled | disabled (key only) |
+| SSH reachable from | anywhere, no limit | lab subnet only, rate-limited |
+| Apache Server header | Apache/2.4.66 (Ubuntu) | Apache |
+| Security headers (X-Frame-Options, nosniff) | 0 of 2 | 2 of 2 |
+| SSH brute-force outcome | ? | ? (Phase 3) |
 
-Baseline details and raw evidence: [01-baseline](01-baseline/README.md)
+Details and raw evidence: [01-baseline](01-baseline/README.md), [02-hardening](02-hardening/README.md)
 
 ## Phases
 
-- [X] Phase 1: Baseline (November)
-- [ ] Phase 2: Hardening (December)
-- [ ] Phase 3: Attack simulation and detection (January)
-- [ ] Phase 4: Final report (February)
+- [x] Phase 1: Baseline
+- [x] Phase 2: Hardening
+- [ ] Phase 3: Attack simulation and detection
+- [ ] Phase 4: Final report
 
 ## How to reproduce
 
 Versions used: Ubuntu Server 26.04 LTS, Kali Linux, VirtualBox, Nmap 7.95, Nikto 2.5.0, Lynis 3.1.6.
+
+Notes from running the lab:
+- Disconnect any VPN on the Windows host before lab tests: a VPN client on the host blocked access to the host-only network.
+- Kali's lab interface (eth0) must have an address in 10.10.111.0/24; if it does not, traffic goes through its NAT adapter and the target sees the host's address instead of Kali's.
+- Take a VM snapshot before each hardening step. The before-attack state for Phase 3 is the snapshot taken before the hardening steps.
 
 (To complete: VM settings, network setup, order of steps.)
 

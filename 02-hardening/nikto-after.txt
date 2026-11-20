@@ -1,0 +1,5 @@
+- Nikto v2.5.0/
++ Target Host: 10.10.111.8
++ Target Port: 80
++ GET /: Server may leak inodes via ETags, header found with file /, inode: 29b0, size: 65f86988bd7f0, mtime: gzip. See: CVE-2003-1418: 
++ OPTIONS OPTIONS: Allowed HTTP Methods: HEAD, GET, POST, OPTIONS .

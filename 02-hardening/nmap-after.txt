@@ -1,0 +1,11 @@
+# Nmap 7.95 scan initiated Wed Nov 18 05:51:03 2026 as: /usr/lib/nmap/nmap --privileged -sS -sV -p- -oN nmap-after.txt 10.10.111.8
+Nmap scan report for 10.10.111.8
+Host is up (0.12s latency).
+Not shown: 54937 filtered tcp ports (no-response), 10596 filtered tcp ports (net-unreach)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 10.2p1 Ubuntu 2ubuntu3.8 (Ubuntu Linux; protocol 2.0)
+80/tcp open  http    Apache httpd
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Nov 18 05:54:31 2026 -- 1 IP address (1 host up) scanned in 208.28 seconds
